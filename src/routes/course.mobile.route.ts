@@ -1,0 +1,510 @@
+import express, { Request, Response, NextFunction } from 'express';
+import authTokenMiddleware from '../middlewares/authToken.middleware';
+import authTokenBackendMiddleware from '../middlewares/authTokenBackend.middleware';
+import CourseController from '../controllers/course.controller';
+
+const router = express.Router();
+
+/**
+ * @swagger
+ * /mobile/courseList:
+ *    get:
+ *      tags:
+ *        - Mobile_Course
+ *      security:
+ *        - BearerAuth: []
+ *      summary: แสดงรายการหลักสูตร
+ *      parameters:
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *       - in: query
+ *         name: category_id
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *       - in: query
+ *         name: keyword
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *      responses:
+ *        200:
+ *          description: Successful
+ */
+router.get(
+    '/mobile/courseList',
+    async (req: Request, res: Response, next: NextFunction) => {
+        await CourseController.courseList(req, res, next);
+    },
+);
+
+/**
+ * @swagger
+ * /mobile/courseById:
+ *   get:
+ *     summary: แสดงรายละเอียดหลักสูตรตาม course_id
+ *     tags:
+ *       - Mobile_Course
+ *     security:
+ *        - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: course_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description:
+ *     responses:
+ *       200:
+ *         description: Successful
+ */
+router.get(
+    '/mobile/courseById',
+    async (req: Request, res: Response, next: NextFunction) => {
+        await CourseController.courseById(req, res);
+    },
+);
+
+/**
+ * @swagger
+ * tags:
+ *   - Mobile_Course
+ * /mobile/courseCategory:
+ *   get:
+ *     summary: แสดงหมวดหมู่กรพัฒนา
+ *     tags:
+ *       - Mobile_Course
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *     responses:
+ *       200:
+ *         description: Example updated successfully
+ */
+router.get('/mobile/courseCategory', CourseController.categoryList);
+
+/**
+ * @swagger
+ * /mobile/generationList:
+ *    get:
+ *      tags:
+ *        - Mobile_Course
+ *      security:
+ *        - BearerAuth: []
+ *      summary: แสดงรายการรุ่นในหลักสูตร
+ *      parameters:
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *       - in: query
+ *         name: course_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description:
+ *      responses:
+ *        200:
+ *          description: Successful
+ */
+router.get(
+    '/mobile/generationList',
+    async (req: Request, res: Response, next: NextFunction) => {
+        await CourseController.generationList(req, res, next);
+    },
+);
+
+/**
+ * @swagger
+ * /mobile/generationCheckRegister:
+ *   get:
+ *     summary: ตรวจสอบข้อมูลการลงทะเบียนในรุ่น
+ *     tags:
+ *       - Mobile_Course
+ *     security:
+ *        - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: generation_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description:
+ *     responses:
+ *       200:
+ *         description: Successful
+ */
+router.get(
+    '/mobile/generationCheckRegister',
+    async (req: Request, res: Response, next: NextFunction) => {
+        await CourseController.generationCheckRegister(req, res);
+    },
+);
+
+/**
+ * @swagger
+ * /mobile/generationRegisterInsert:
+ *    post:
+ *      tags:
+ *        - Mobile_Course
+ *      security:
+ *        - BearerAuth: []
+ *      description: generationRegisterInsert
+ *      summary: บันทึกลงทะเบียนเป็นสามาชิกในรุ่น
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                data:
+ *                  type: object
+ *                  properties:
+ *                    generation_id:
+ *                      type: integer
+ *                      example: "MQ=="
+ *                    register_type_id:
+ *                      type: integer
+ *                      example: "MA=="
+ *                dataType:
+ *                  type: object
+ *                  properties:
+ *                    generation_id:
+ *                      type: string
+ *                      example: "int"
+ *                    register_type_id:
+ *                      type: string
+ *                      example: "int"
+ *
+ *      responses:
+ *        200:
+ *          description: Successful
+ */
+
+router.post(
+    '/mobile/generationRegisterInsert',
+    authTokenMiddleware,
+    async (req: Request, res: Response) => {
+        await CourseController.generationRegisterInsert(req, res);
+    },
+);
+
+/**
+ * @swagger
+ * /mobile/generationById:
+ *   get:
+ *     summary: แสดงรายละเอียดรุ่นตาม generation_id
+ *     tags:
+ *       - Mobile_Course
+ *     security:
+ *        - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: generation_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description:
+ *     responses:
+ *       200:
+ *         description: Successful
+ */
+router.get(
+    '/mobile/generationById',
+    async (req: Request, res: Response, next: NextFunction) => {
+        await CourseController.generationById(req, res);
+    },
+);
+
+/**
+ * @swagger
+ * /mobile/learningList:
+ *    get:
+ *      tags:
+ *        - Mobile_Course
+ *      security:
+ *        - BearerAuth: []
+ *      summary: แสดงรายการบทเรียนในรุ่น
+ *      parameters:
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *       - in: query
+ *         name: generation_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description:
+ *      responses:
+ *        200:
+ *          description: Successful
+ */
+router.get(
+    '/mobile/learningList',
+    async (req: Request, res: Response, next: NextFunction) => {
+        await CourseController.learningList(req, res, next);
+    },
+);
+
+/**
+ * @swagger
+ * /mobile/learningCheckSelected:
+ *   get:
+ *     summary: ตรวจสอบการเข้าเรียนในบทเรียน
+ *     tags:
+ *       - Mobile_Course
+ *     security:
+ *        - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: learn_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description:
+ *     responses:
+ *       200:
+ *         description: Successful
+ */
+router.get(
+    '/mobile/learningCheckSelected',
+    async (req: Request, res: Response, next: NextFunction) => {
+        await CourseController.learningCheckSelected(req, res);
+    },
+);
+
+/**
+ * @swagger
+ * /mobile/learningById:
+ *   get:
+ *     summary: แสดงรายละเอียดรบทเรียนตาม learn_id
+ *     tags:
+ *       - Mobile_Course
+ *     security:
+ *        - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: learn_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description:
+ *     responses:
+ *       200:
+ *         description: Successful
+ */
+router.get(
+    '/mobile/learningById',
+    async (req: Request, res: Response, next: NextFunction) => {
+        await CourseController.learningById(req, res);
+    },
+);
+
+/**
+ * @swagger
+ * /mobile/learningPlayerAction:
+ *    post:
+ *      tags:
+ *        - Mobile_Course
+ *      security:
+ *        - BearerAuth: []
+ *      description: learningPlayerAction
+ *      summary: บันทึก Player Action
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                data:
+ *                  type: object
+ *                  properties:
+ *                    learn_id:
+ *                      type: integer
+ *                      example: "MQ=="
+ *                    player_action:
+ *                      type: varchar
+ *                      example: "cGxheQ=="
+ *                    player_seeked_time:
+ *                      type: integer
+ *                      example: "MA=="
+ *                dataType:
+ *                  type: object
+ *                  properties:
+ *                    learn_id:
+ *                      type: string
+ *                      example: "int"
+ *                    player_action:
+ *                      type: string
+ *                      example: "varchar"
+ *                    player_seeked_time:
+ *                      type: string
+ *                      example: "int"
+ *
+ *      responses:
+ *        200:
+ *          description: Successful
+ */
+
+router.post(
+    '/mobile/learningPlayerAction',
+    authTokenMiddleware,
+    async (req: Request, res: Response) => {
+        await CourseController.learningPlayerAction(req, res);
+    },
+);
+
+/**
+ * @swagger
+ * /mobile/yearList:
+ *    get:
+ *      tags:
+ *        - Mobile_Course
+ *      security:
+ *        - BearerAuth: []
+ *      summary: แสดงรายการปีงบประมาณ
+ *      parameters:
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *      responses:
+ *        200:
+ *          description: Successful
+ */
+router.get(
+    '/mobile/yearList',
+    async (req: Request, res: Response, next: NextFunction) => {
+        await CourseController.yearList(req, res, next);
+    },
+);
+
+/**
+ * @swagger
+ * /mobile/courseLearningHistoryList:
+ *    get:
+ *      tags:
+ *        - Mobile_Course
+ *      security:
+ *        - BearerAuth: []
+ *      summary: แสดงรายการประวัติการเรียน
+ *      parameters:
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *       - in: query
+ *         name: year_id
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description:
+ *      responses:
+ *        200:
+ *          description: Successful
+ */
+router.get(
+    '/mobile/courseLearningHistoryList',
+    async (req: Request, res: Response, next: NextFunction) => {
+        await CourseController.courseLearningHistoryList(req, res, next);
+    },
+);
+
+/**
+ * @swagger
+ * /mobile/cancelRegister:
+ *    post:
+ *      tags:
+ *        - Mobile_Course
+ *      security:
+ *        - BearerAuth: []
+ *      description: cancelRegister
+ *      summary: ยกเลิกการเป็นสมาชิก
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                data:
+ *                  type: object
+ *                  properties:
+ *                    generation_id:
+ *                      type: integer
+ *                      example: "MQ=="
+ *                dataType:
+ *                  type: object
+ *                  properties:
+ *                    generation_id:
+ *                      type: string
+ *                      example: "int"
+ *      responses:
+ *        200:
+ *          description: Successful
+ */
+router.post(
+    '/mobile/cancelRegister',
+    authTokenMiddleware,
+    async (req: Request, res: Response) => {
+        await CourseController.cancelRegister(req, res);
+    },
+);
+export default router;

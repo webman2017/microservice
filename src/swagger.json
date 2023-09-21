@@ -1,0 +1,32 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Gateway Api",
+        "version": "1.0.0",
+        "description": "Gateway Api Document For Marine Department",
+        "contact": {
+            "name": "Marine Department",
+            "url": "https://md.go.th/"
+        }
+    },
+    "servers": [
+        {
+            "url": "https://hrd.md.go.th/api",
+            "description": "Production Server"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            },
+            "ApiKeyAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

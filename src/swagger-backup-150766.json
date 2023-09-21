@@ -1,0 +1,138 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Gateway Api",
+        "version": "1.0.0",
+        "description": "Gateway Api Document For Marine Department",
+        "contact": {
+            "name": "Marine Department",
+            "url": "https://md.go.th/"
+        }
+    },
+    "servers": [
+        {
+            "url": "https://hrd-md.aitproject.com/api",
+            "description": "Production Development Server"
+        },
+        {
+            "url": "http://localhost:9090",
+            "description": "Local Development Server"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            },
+            "ApiKeyAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "App_Project",
+            "description": "App Project"
+        },
+        {
+            "name": "Authenticate",
+            "description": "Authenticate For Gateway"
+        },
+        {
+            "name": "Dpis",
+            "description": "Departmental Personnel Information System"
+        },
+        {
+            "name": "Mobile_Activity",
+            "description": "Mobile Activity"
+        },
+        {
+            "name": "Mobile_Authorize",
+            "description": "Mobile Authorize"
+        },
+        {
+            "name": "Mongo",
+            "description": "Mongo Database"
+        },
+        {
+            "name": "Upload",
+            "description": "Upload"
+        },
+        {
+            "name": "Web_Aboutus",
+            "description": "Web Aboutus"
+        },
+        {
+            "name": "Web_Activity",
+            "description": "Web Activity"
+        },
+        {
+            "name": "Web_Authorize",
+            "description": "Web Authorize"
+        },
+        {
+            "name": "Web_Banner",
+            "description": "Web Banner"
+        },
+        {
+            "name": "Web_Contact",
+            "description": "Web Contact"
+        },
+        {
+            "name": "Web_Content",
+            "description": "Web Content"
+        },
+        {
+            "name": "Web_Cookie",
+            "description": "Web Cookie"
+        },
+        {
+            "name": "Web_Document",
+            "description": "Web Document"
+        },
+        {
+            "name": "Web_Education",
+            "description": "Web Education"
+        },
+        {
+            "name": "Web_Faq",
+            "description": "Web FAQ"
+        },
+        {
+            "name": "Web_Member",
+            "description": "Web Member"
+        },
+        {
+            "name": "Web_News",
+            "description": "Web News"
+        },
+        {
+            "name": "Web_Poll",
+            "description": "Web Poll"
+        },
+        {
+            "name": "Web_Setting",
+            "description": "Web Setting"
+        },
+        {
+            "name": "Web_SiteMap",
+            "description": "Web SiteMap"
+        },
+        {
+            "name": "Web_Social",
+            "description": "Web Social"
+        },
+        {
+            "name": "Web_Statistic",
+            "description": "Web Statistic"
+        },
+        {
+            "name": "Web_TermsAndCondition",
+            "description": "Web Terms and Condition"
+        }
+    ]
+}
