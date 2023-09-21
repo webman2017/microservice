@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+    app:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+            #target: production
+        environment:
+            - NODE_ENV=development
+            - TOKEN_SECRET=eyJ0eXAiOiJqd3QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImRldmVsb3BlciIsIm1lbWJlcl9pZCI6IjEiLCJsb2dpbl9pZCI6IjY0ODJmNjM4MGUyNjE3YWM3MzBlYjkwZCIsImdyb3VwX2FsbCI6WyIxIl0sInpvbmUiOiIxIiwibGFuZyI6IiIsImlzX2xvZ2luIjp0cnVlLCJjcmVhdGVkX2F0IjoiMjAyMy0wNi0wOSAxNjo1MTo1MiIsImV4cGlyZWQiOiIyMDIzLTA2LTEwIDA0OjUxOjUyIn0.OEOQ18u_gkR1e8rrTJRlHwRaovUSmXzOU6qrfXQZAKo
+            - TOKEN_SECRET_REFRESH=0ueUlWRDDjvu7188rORSqZVuwWUVvJSyPGWw84J3HxgWmW9VKRP4RFzW2Imvb1Jr
+
+            - BACKEND_API_CLIENT_KEY=afe9bddd131c11e9b3cfd481d7c87a31
+            - BACKEND_API_CLIENT_SECRET=afe9c40c131c11e9b3cfd481d7c87a33
+
+            - MONGO_DB_HOST=demo81.aitproject.com
+            - MONGO_DB_PORT=27017
+            - MONGO_DB_DATABASE=web_demo81
+            - MONGO_DB_USERNAME=demo81
+            - MONGO_DB_PASSWORD=demo81DB@2022
+
+            - BASEAPIBACKEND=https://hrd-md.aitproject.com/backend/webservice
+
+            - TZ='Asia/Bangkok'
+        #user: nodeuser
+        ports:
+            - 9090:9090
+        # volumes:
+        #     - ./src:/app/src
+        #     - ./dist:/app/dist
